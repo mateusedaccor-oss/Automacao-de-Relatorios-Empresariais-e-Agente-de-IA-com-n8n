@@ -1,0 +1,244 @@
+{
+  "name": "Merging Data",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        48
+      ],
+      "id": "a9e921c9-fa10-4d7e-b199-1b67a0055bed",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "6ouem8Yvz6K1IjP0",
+          "mode": "list",
+          "cachedResultName": "customers",
+          "cachedResultUrl": "/projects/StezTAw7YnAAP5d6/datatables/6ouem8Yvz6K1IjP0"
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "43fa44aa-23f9-4ec0-b8fe-b5a40fa1d897",
+      "name": "GetCustomers"
+    },
+    {
+      "parameters": {
+        "url": "https://learn.app.n8n.cloud/webhook/countries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        160
+      ],
+      "id": "a4bc5657-f6f8-41b0-be21-2bac747c2116",
+      "name": "GetCountries"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "customerCountry",
+              "field2": "name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        448,
+        80
+      ],
+      "id": "66dbabc5-f025-4741-ad9b-d5c01fe2873b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "6ouem8Yvz6K1IjP0",
+          "mode": "list",
+          "cachedResultName": "customers",
+          "cachedResultUrl": "/projects/StezTAw7YnAAP5d6/datatables/6ouem8Yvz6K1IjP0"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "region": "={{ $json.region }}",
+            "subregion": "={{ $json.subregion }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "customerID",
+              "displayName": "customerID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "customerCountry",
+              "displayName": "customerCountry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "customerEmail",
+              "displayName": "customerEmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "customerSince",
+              "displayName": "customerSince",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "region",
+              "displayName": "region",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "subregion",
+              "displayName": "subregion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        80
+      ],
+      "id": "030302c8-9486-4932-9d62-be633577a69d",
+      "name": "UpdateCustomers"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "GetCustomers",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GetCountries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetCustomers": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetCountries": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "UpdateCustomers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "85f4005c-cc2e-4b0c-b24c-37989396f46a",
+  "meta": {
+    "instanceId": "1a0610f9625c2ecf4cc9fe0efbc3e7b36d75e17eef5e37950aec40f3aada6797"
+  },
+  "id": "P8ktc3RcIJNNlDHr",
+  "tags": [
+    {
+      "updatedAt": "2026-07-22T19:59:58.123Z",
+      "createdAt": "2026-07-22T19:59:58.123Z",
+      "id": "T5COvwJGpQCo0lIB",
+      "name": "n8n quickstart"
+    }
+  ]
+}
