@@ -33,6 +33,9 @@ A equipe de análise de dados precisava lidar semanalmente com processos manuais
 
 ![Agente de Atendimento](./AgenteDeAtendimento.png)
 
+
+🎬 **[Clique aqui para assistir ao vídeo do Agente respondendo em tempo real](./AgentRespondendo.mp4)**
+
 ---
 
 ### 3. Unificação de Dados e Relatórios Avançados (`Generating Reports` & `Merging Data`)
