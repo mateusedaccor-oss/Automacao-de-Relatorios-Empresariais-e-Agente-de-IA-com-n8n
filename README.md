@@ -15,7 +15,7 @@ A equipe de análise de dados precisava lidar semanalmente com processos manuais
 
 ## 🛠️ Solução e Fluxos Desenvolvidos
 
-### 1. Relatório Semanal Automático de Vendas (`Nathan's workflow`)
+### 1. Relatório Semanal Automático de Vendas
 * **Arquivo do Fluxo:** [`FluxoSemanal.json`](./FluxoSemanal.json)
 * **Agendamento:** Executado automaticamente toda segunda-feira às 9h.
 * **Processamento:** Extrai os pedidos via API REST e separa o status entre *Processando* e *Confirmado*.
@@ -25,7 +25,7 @@ A equipe de análise de dados precisava lidar semanalmente com processos manuais
 
 ---
 
-### 2. Agente de Atendimento Inteligente com IA (`Customer Service Agent`)
+### 2. Agente de Atendimento Inteligente com IA
 * **Arquivo do Fluxo:** [`AgenteDeConsulta.json`](./AgenteDeConsulta.json)
 * **Assistente com LLM:** Integrado com o modelo de IA da **OpenAI**.
 * **Memória de Contexto:** Mantém o histórico da conversa para responder dúvidas de forma natural.
@@ -56,7 +56,7 @@ A equipe de análise de dados precisava lidar semanalmente com processos manuais
 
 ## 🧰 Tecnologias e Ferramentas
 
-* **Orquestrador de Automação:** n8n (Self-hosted)
+* **Orquestrador de Automação:** n8n
 * **Inteligência Artificial:** OpenAI API (LLM, AI Agent, Memory e Tools)
 * **Comunicação & Protocolos:** APIs REST, HTTP Requests e Webhooks
 * **Notificações:** Discord API
